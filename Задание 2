@@ -1,0 +1,48 @@
+(Ball.java)
+package pract2;
+
+public class Ball {
+    private float x = 0.0f;
+    private float y = 0.0f;
+
+    public Ball(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Ball() {}
+
+    public float getX() { return x; }
+    public void setX(float x) { this.x = x; }
+
+    public float getY() { return y; }
+    public void setY(float y) { this.y = y; }
+
+    public void setXY(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void move(float xDisp, float yDisp) {
+        this.x += xDisp;
+        this.y += yDisp;
+    }
+
+    @Override
+    public String toString() {
+        return "Ball[x=" + x + ", y=" + y + "]";
+    }
+}
+
+
+(TestBall.java)
+package pract2;
+
+public class TestBall {
+    public static void main(String[] args) {
+        Ball ball = new Ball(1.5f, 2.5f);
+        System.out.println(ball);
+        ball.move(0.5f, -1.0f);
+        System.out.println("После перемещения: " + ball);
+    }
+}

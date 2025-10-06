@@ -1,0 +1,42 @@
+package pract2;
+
+import java.util.*;
+
+public class Poker {
+    private static final String[] SUITS = {"♠", "♥", "♦", "♣"};
+    private static final String[] RANKS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество игроков (n): ");
+        int n = sc.nextInt();
+
+        if (n <= 0 || n > 10) {
+            System.out.println("Неверное количество игроков (макс. 10)");
+            return;
+        }
+
+        List<String> deck = new ArrayList<>();
+        for (String suit : SUITS) {
+            for (String rank : RANKS) {
+                deck.add(rank + suit);
+            }
+        }
+
+        Collections.shuffle(deck);
+
+        int cardsPerPlayer = 5;
+        if (n * cardsPerPlayer > deck.size()) {
+            System.out.println("Недостаточно карт!");
+            return;
+        }
+
+        for (int player = 1; player <= n; player++) {
+            System.out.println("Игрок " + player + ":");
+            for (int i = 0; i < cardsPerPlayer; i++) {
+                System.out.println(deck.remove(0));
+            }
+            System.out.println(); // пустая строка
+        }
+    }
+}

@@ -1,0 +1,96 @@
+(Book.java)
+package pract2;
+
+public class Book {
+    private String title;
+    private String author;
+    private int year;
+
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    // геттеры
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public int getYear() { return year; }
+
+    @Override
+    public String toString() {
+        return "\"" + title + "\" by " + author + " (" + year + ")";
+    }
+}
+
+(Bookshelf.java)
+package pract2;
+
+import java.util.Arrays;
+
+public class Bookshelf {
+    private Book[] books;
+    private int count;
+
+    public Bookshelf(int capacity) {
+        books = new Book[capacity];
+        count = 0;
+    }
+
+    public void addBook(Book book) {
+        if (count < books.length) {
+            books[count++] = book;
+        }
+    }
+
+    public Book getEarliestBook() {
+        if (count == 0) return null;
+        Book earliest = books[0];
+        for (int i = 1; i < count; i++) {
+            if (books[i].getYear() < earliest.getYear()) {
+                earliest = books[i];
+            }
+        }
+        return earliest;
+    }
+
+    public Book getLatestBook() {
+        if (count == 0) return null;
+        Book latest = books[0];
+        for (int i = 1; i < count; i++) {
+            if (books[i].getYear() > latest.getYear()) {
+                latest = books[i];
+            }
+        }
+        return latest;
+    }
+
+    public void sortBooksByYear() {
+        Arrays.sort(books, 0, count, (a, b) -> Integer.compare(a.getYear(), b.getYear()));
+    }
+
+    public void displayBooks() {
+        for (int i = 0; i < count; i++) {
+            System.out.println(books[i]);
+        }
+    }
+}
+
+(BookTest.java)
+package pract2;
+
+public class BookTest {
+    public static void main(String[] args) {
+        Bookshelf shelf = new Bookshelf(5);
+        shelf.addBook(new Book("1984", "Джордж Оруэлл", 1949));
+        shelf.addBook(new Book("Мастер и Маргарита", "Булгаков", 1967));
+        shelf.addBook(new Book("Гарри Поттер", "Роулинг", 1997));
+
+        System.out.println("Самая ранняя: " + shelf.getEarliestBook());
+        System.out.println("Самая поздняя: " + shelf.getLatestBook());
+
+        shelf.sortBooksByYear();
+        System.out.println("\nПосле сортировки:");
+        shelf.displayBooks();
+    }
+}
